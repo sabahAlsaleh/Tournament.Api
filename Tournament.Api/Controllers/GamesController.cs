@@ -11,6 +11,8 @@ using Tournament.Core.Repository;
 namespace Tournament.Api.Controllers
 {
     [Route("api/[controller]")]
+
+//    [Route("api/TournamentDetails/{TournamentDetailsID}/Games")]
     [ApiController]
     public class GamesController : ControllerBase
     {

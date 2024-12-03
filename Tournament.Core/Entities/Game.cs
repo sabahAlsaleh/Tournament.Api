@@ -1,4 +1,6 @@
-﻿namespace Tournament.Core.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace Tournament.Core.Entities
 {
     public class Game
     {
@@ -8,7 +10,8 @@
         public int TournamentId { get; set; }
 
         //Navigation Property
-        public TournamentDetails Tournament {get; set; }
+        [JsonIgnore]
+        public TournamentDetails? Tournament {get; set; }
 
     }
 
