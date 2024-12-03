@@ -7,7 +7,7 @@ using Tournament.Core.Entities;
 
 namespace Tournament.Core.Repository
 {
-    public class IGameRepository
+    public interface IGameRepository
     {
         Task<IEnumerable<Game>> GetAllAsync();
         Task<Game> GetAsync(int id);

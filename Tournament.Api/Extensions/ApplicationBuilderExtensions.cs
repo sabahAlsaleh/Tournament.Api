@@ -8,9 +8,7 @@ namespace Tournament.Api.Extensions
         {
             using (var scope = app.ApplicationServices.CreateScope())
             {
-                var context = scope.ServiceProvider.
-                    
-                    GetRequiredService<TournamentContext>();
+                var context = scope.ServiceProvider.GetRequiredService<TournamentContext>();
                 await SeedData.SeedAsync(context);
 
             }

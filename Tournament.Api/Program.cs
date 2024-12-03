@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Tournament.Api.Extensions;
+using Tournament.Core.Repository;
 using Tournament.Data.Data;
+using Tournament.Data.Repositories;
 
 namespace Tournament.Api
 {
@@ -14,6 +16,8 @@ namespace Tournament.Api
                 options.UseSqlServer(builder.Configuration.GetConnectionString("TournamentContext") ?? throw new InvalidOperationException("Connection string 'TournamentContext' not found.")));
 
             // Add services to the container.
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             // These extensions help us map against Json and Xml.
             builder.Services.AddControllers(opt => opt.ReturnHttpNotAcceptable= true)
                 .AddNewtonsoftJson()

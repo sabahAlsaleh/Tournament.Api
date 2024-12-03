@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Tournament.Core.Entities;
 
+
 namespace Tournament.Core.Repository
 {
-    public class ITournamentRepository
+    public interface ITournamentRepository
     {
         Task<IEnumerable<TournamentDetails>> GetAllAsync();
         Task<TournamentDetails> GetAsync(int id);

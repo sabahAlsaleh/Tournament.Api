@@ -5,10 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Tournament.Core.Entities;
 using Tournament.Data.Data;
+using Microsoft.EntityFrameworkCore;
+using Tournament.Core.Repository;
+
 
 namespace Tournament.Data.Repositories
 {
-    public class GameRepository
+    public class GameRepository:IGameRepository
     {
         private readonly TournamentContext _context;
 
@@ -48,4 +51,4 @@ namespace Tournament.Data.Repositories
         }
     }
 }
-}
+
