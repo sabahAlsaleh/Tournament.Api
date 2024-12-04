@@ -19,12 +19,19 @@ namespace Tournament.Api
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // These extensions help us map against Json and Xml.
+            /*builder.Services.AddControllers(opt => opt.ReturnHttpNotAcceptable= true)
+                .AddNewtonsoftJson()
+                .AddXmlDataContractSerializerFormatters();
+            */
             builder.Services.AddControllers(opt => opt.ReturnHttpNotAcceptable = true)
-             .AddNewtonsoftJson(options =>
-             {
-                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-             })
-             .AddXmlDataContractSerializerFormatters();
+           .AddNewtonsoftJson(options =>
+           {
+               options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+           })
+           .AddXmlDataContractSerializerFormatters();
+
+            builder.Services.AddAutoMapper(typeof(TournamentMappings));
+
 
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
