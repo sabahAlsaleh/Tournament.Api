@@ -58,7 +58,11 @@ namespace Tournament.Api.Controllers
         {
             if (id != gameDto.Id)
             {
-                return BadRequest();
+                return BadRequest("The provided ID does not match the resource ID.");
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
             }
             var game = _mapper.Map<Game>(gameDto);
             _unitOfWork.GameRepository.Update(game);
@@ -75,7 +79,7 @@ namespace Tournament.Api.Controllers
                 }
                 else
                 {
-                    throw;
+                    return StatusCode(500, "An error occurred while updating the resource.");
                 }
             }
 
@@ -86,9 +90,21 @@ namespace Tournament.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Game>> PostGame(GameDto gameDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var game = _mapper.Map<Game>(gameDto);
             _unitOfWork.GameRepository.Add(game);
-            await _unitOfWork.CompleteAsync();
+            try
+            {
+                await _unitOfWork.CompleteAsync();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An error occurred while saving the resource.");
+            }
 
             return CreatedAtAction("GetGame", new { id = game.Id }, gameDto);
         }
