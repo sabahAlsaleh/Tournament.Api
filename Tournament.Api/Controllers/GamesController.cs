@@ -161,5 +161,19 @@ namespace Tournament.Api.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("title/{title}")]
+        public async Task<ActionResult<IEnumerable<GameDto>>> GetGameByTitle( string title)
+        {
+            var games = await _unitOfWork.GameRepository.GetByTitleAsync(title);
+            if (games == null || !games.Any()) return NotFound("No games found with the specified title.");
+
+
+            var gamesDtos = _mapper.Map<IEnumerable<GameDto>>(games);
+            return Ok(gamesDtos);
+        }
+
+
+
     }
 }
