@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tournament.Core.DTO;
@@ -108,6 +109,42 @@ namespace Tournament.Api.Controllers
 
             return CreatedAtAction("GetGame", new { id = game.Id }, gameDto);
         }
+
+        [HttpPatch("{gameId}")]
+        public async Task<ActionResult<GameDto>> PatchGame( int gameId, [ FromBody]JsonPatchDocument<GameDto> patchDocument)
+        {
+            if(patchDocument == null) return BadRequest("Invalid patch document ");
+
+            // Retrieve the game from database
+            var game= await _unitOfWork.GameRepository.GetAsync(gameId);
+            if (game == null) return NotFound();
+
+            // Map the retrieved game entity to a DTO
+            var gameDto = _mapper.Map<GameDto>(game);
+
+            // Apply the patch to the DTO , Validating the model state
+            patchDocument.ApplyTo(gameDto, ModelState);
+            if(!ModelState.IsValid) { return BadRequest(ModelState); }
+
+            //Map the patched DTO back to the entity and update the repository
+            _mapper.Map(gameDto, game);
+            _unitOfWork.GameRepository.Update(game);
+
+
+            try
+            {
+                // Attempt to save changes to the database
+                await _unitOfWork.CompleteAsync();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An error occurred while updating the resource.");
+            }
+
+            return Ok(gameDto);
+        }
+
+
 
         // DELETE: api/Games/5
         [HttpDelete("{id}")]

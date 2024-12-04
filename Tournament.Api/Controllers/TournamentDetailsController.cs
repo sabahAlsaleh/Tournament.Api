@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tournament.Core.DTO;
@@ -105,6 +106,45 @@ namespace Tournament.Api.Controllers
             }
             return CreatedAtAction("GetTournamentDetails", new { id = tournamentDetails.Id }, tournamentDto);
         }
+
+        // PATCH method for updating partial fields in TournamentDetails
+        [HttpPatch("{tournamentId}")]
+        public async Task<ActionResult<TournamentDto>> PatchTournament( int tournamentId, [FromBody]JsonPatchDocument<TournamentDto> patchDocument)
+        {
+            if(patchDocument == null ) return BadRequest("Invalid patch document");
+
+            // Retrieve the tournament details from the database
+            var tournamentDetails = await _unitOfWork.TournamentRepository.GetAsync(tournamentId);
+            if (tournamentDetails == null) return NotFound();
+
+            // Map the retrieved tournament entity to a DTO
+            var tournamentDto = _mapper.Map<TournamentDto>(tournamentDetails);
+
+            // Apply the patch to the DTO, validating the model state
+            patchDocument.ApplyTo(tournamentDto, ModelState);
+
+            if(!ModelState.IsValid) {return BadRequest(ModelState);}
+
+            // Map the patched DTO back to the entity and update the repository
+            _mapper.Map(tournamentDto, tournamentDetails);
+            _unitOfWork.TournamentRepository.Update(tournamentDetails);
+
+            try
+            {
+                await _unitOfWork.CompleteAsync();
+
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(500, "An error occurred while updating the resource.");
+            }
+
+            return Ok( tournamentDto );
+
+
+        }
+
 
         // DELETE: api/TournamentDetails/5
         [HttpDelete("{id}")]
