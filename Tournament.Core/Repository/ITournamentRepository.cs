@@ -16,5 +16,6 @@ namespace Tournament.Core.Repository
         void Add(TournamentDetails tournament);
         void Update(TournamentDetails tournament);
         void Remove(TournamentDetails tournament);
+        Task<IEnumerable<TournamentDetails>> GetAllIncludingMatchesAsync();
     }
 }

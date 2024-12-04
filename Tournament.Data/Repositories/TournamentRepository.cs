@@ -22,7 +22,9 @@ namespace Tournament.Data.Repositories
 
         public async Task<IEnumerable<TournamentDetails>> GetAllAsync()
         {
-            return await _context.TournamentDetails.Include(t => t.Games).ToListAsync();
+           // return await _context.TournamentDetails.Include(t => t.Games).ToListAsync();
+            return await _context.TournamentDetails.ToListAsync();
+
         }
 
         public async Task<TournamentDetails> GetAsync(int id)
@@ -48,6 +50,13 @@ namespace Tournament.Data.Repositories
         public void Remove(TournamentDetails tournament)
         {
             _context.TournamentDetails.Remove(tournament);
+        }
+
+        public async Task<IEnumerable<TournamentDetails>> GetAllIncludingMatchesAsync()
+        {
+            return await _context.TournamentDetails
+                           .Include(t => t.Games)
+                           .ToListAsync();
         }
     }
 }
