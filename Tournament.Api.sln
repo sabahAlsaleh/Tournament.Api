@@ -3,18 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tournament.Api", "Tournament.Api\Tournament.Api.csproj", "{67F9B43B-7918-4EAA-83A4-F3CA9126CD40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tournament.Api", "Tournament.Api\Tournament.Api.csproj", "{67F9B43B-7918-4EAA-83A4-F3CA9126CD40}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9AED75B0-B2B6-48F7-A049-12FF176F0EA7} = {9AED75B0-B2B6-48F7-A049-12FF176F0EA7}
 		{C61FCB5D-F82C-4756-BA34-9362E0FFCC1F} = {C61FCB5D-F82C-4756-BA34-9362E0FFCC1F}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tournament.Core", "Tournament.Core\Tournament.Core.csproj", "{C61FCB5D-F82C-4756-BA34-9362E0FFCC1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tournament.Core", "Tournament.Core\Tournament.Core.csproj", "{C61FCB5D-F82C-4756-BA34-9362E0FFCC1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tournament.Data", "Tournament.Data\Tournament.Data.csproj", "{9AED75B0-B2B6-48F7-A049-12FF176F0EA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tournament.Data", "Tournament.Data\Tournament.Data.csproj", "{9AED75B0-B2B6-48F7-A049-12FF176F0EA7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C61FCB5D-F82C-4756-BA34-9362E0FFCC1F} = {C61FCB5D-F82C-4756-BA34-9362E0FFCC1F}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tournament.Presentation", "Tournament.Presentation\Tournament.Presentation.csproj", "{739A7CF4-2BC4-4C0A-A561-A096A612DB8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tournament.Services", "Tournament.Services\Tournament.Services.csproj", "{399C3113-8E89-42E6-AA7F-171AA6CC621A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Contracts", "Service.Contracts\Service.Contracts.csproj", "{3709A65A-7B7B-4433-BDB9-55DF8327132E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +40,18 @@ Global
 		{9AED75B0-B2B6-48F7-A049-12FF176F0EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AED75B0-B2B6-48F7-A049-12FF176F0EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AED75B0-B2B6-48F7-A049-12FF176F0EA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{739A7CF4-2BC4-4C0A-A561-A096A612DB8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{739A7CF4-2BC4-4C0A-A561-A096A612DB8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{739A7CF4-2BC4-4C0A-A561-A096A612DB8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{739A7CF4-2BC4-4C0A-A561-A096A612DB8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{399C3113-8E89-42E6-AA7F-171AA6CC621A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{399C3113-8E89-42E6-AA7F-171AA6CC621A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{399C3113-8E89-42E6-AA7F-171AA6CC621A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{399C3113-8E89-42E6-AA7F-171AA6CC621A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3709A65A-7B7B-4433-BDB9-55DF8327132E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3709A65A-7B7B-4433-BDB9-55DF8327132E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3709A65A-7B7B-4433-BDB9-55DF8327132E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3709A65A-7B7B-4433-BDB9-55DF8327132E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

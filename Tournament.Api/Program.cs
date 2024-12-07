@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Service.Contracts;
 using Tournament.Api.Extensions;
 using Tournament.Core.Repository;
 using Tournament.Data.Data;
 using Tournament.Data.Repositories;
+using Tournament.Services;
 
 namespace Tournament.Api
 {
@@ -17,6 +19,10 @@ namespace Tournament.Api
 
             // Add services to the container.
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IServiceManager, ServiceManager>();
+            builder.Services.AddScoped<IGameService, GameService>();
+
+
 
             // These extensions help us map against Json and Xml.
             builder.Services.AddControllers(opt => opt.ReturnHttpNotAcceptable= true)

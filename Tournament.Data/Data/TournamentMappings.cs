@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tournament.Core.DTO;
+using Tournament.Core.DTOs;
 using Tournament.Core.Entities;
 
 namespace Tournament.Data.Data
@@ -20,6 +21,7 @@ namespace Tournament.Data.Data
                 .ReverseMap();
 
             CreateMap<Game,GameDto>().ReverseMap();
+            CreateMap<TournamentDetails, TournamentCreateDto>().ReverseMap();
         }
 
     }
