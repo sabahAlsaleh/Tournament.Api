@@ -11,9 +11,9 @@ namespace Service.Contracts
 {
     public interface ITournamentService
     {
-        Task<IEnumerable<TournamentDto>> GetTournamentsAsync(bool includeMatches, int page, int pageSize, string sortOrder, string filter);
+        Task<IEnumerable<TournamentDtoWithGame>> GetTournamentsAsync(bool includeMatches, int page, int pageSize, string sortOrder, string filter);
         Task<TournamentDto> GetTournamentByIdAsync(int id);
-        Task AddTournamentAsync(TournamentCreateDto tournamentDto);
+        Task AddTournamentAsync(TournamentDto tournamentDto);
         Task UpdateTournamentAsync(int id, TournamentDto tournamentDto);
         Task DeleteTournamentAsync(int id);
         Task<TournamentDto> PatchTournamentAsync(int tournamentId, JsonPatchDocument<TournamentDto> patchDocument);

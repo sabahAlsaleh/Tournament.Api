@@ -37,7 +37,7 @@ namespace Tournament.Presentation.Controllers
 
         // POST: api/TournamentDetails
         [HttpPost]
-        public async Task<ActionResult<TournamentCreateDto>> PostTournamentDetails(TournamentCreateDto tournamentDto)
+        public async Task<ActionResult<TournamentDto>> PostTournamentDetails(TournamentDto tournamentDto)
         {
             if (!ModelState.IsValid)
             {

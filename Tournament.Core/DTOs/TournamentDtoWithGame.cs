@@ -8,7 +8,7 @@ using Tournament.Core.DTO;
 
 namespace Tournament.Core.DTOs
 {
-    public class TournamentCreateDto
+    public class TournamentDtoWithGame
     {
         public int Id { get; set; }
 
@@ -17,5 +17,7 @@ namespace Tournament.Core.DTOs
         public string Title { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; } = DateTime.Now.AddMonths(3);
+        public ICollection<GameDto> Games { get; set; }
+
     }
 }

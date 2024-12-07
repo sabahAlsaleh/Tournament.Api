@@ -16,6 +16,5 @@ namespace Tournament.Core.DTO
         public string Title { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; } = DateTime.Now.AddMonths(3);
-        public ICollection<GameDto> Games { get; set; }
     }
 }

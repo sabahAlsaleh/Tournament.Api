@@ -54,7 +54,7 @@ namespace Tournament.Services
         }
         */
 
-        public async Task<IEnumerable<TournamentDto>> GetTournamentsAsync(bool includeMatches, int page, int pageSize, string sortOrder, string filter = null)
+        public async Task<IEnumerable<TournamentDtoWithGame>> GetTournamentsAsync(bool includeMatches, int page, int pageSize, string sortOrder, string filter = null)
         {
             var tournaments = includeMatches
                 ? await _unitOfWork.TournamentRepository.GetAllIncludingMatchesAsync()
@@ -91,7 +91,7 @@ namespace Tournament.Services
             };
 
             // Map to DTO
-            return _mapper.Map<IEnumerable<TournamentDto>>(paginatedTournaments);
+            return _mapper.Map<IEnumerable<TournamentDtoWithGame>>(paginatedTournaments);
         }
 
         
@@ -106,7 +106,7 @@ namespace Tournament.Services
             return _mapper.Map<TournamentDto>(tournament);
         }
 
-        public async Task AddTournamentAsync(TournamentCreateDto tournamentDto)
+        public async Task AddTournamentAsync(TournamentDto tournamentDto)
         {
             var tournament = _mapper.Map<TournamentDetails>(tournamentDto);
 
