@@ -24,6 +24,8 @@ namespace Tournament.Data.Data
 
             CreateMap<UserRegistrationDto, ApplicationUser>()
             .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));
+
+
         }
 
     }

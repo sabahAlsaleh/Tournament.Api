@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Service.Contracts;
+using System.Text;
 using Tournament.Api.Extensions;
 using Tournament.Core.Entities;
 using Tournament.Core.Repository;
@@ -26,14 +29,6 @@ namespace Tournament.Api
                 .AddEntityFrameworkStores<TournamentContext>()
                 .AddDefaultTokenProviders();
 
-            //  authentication
-            builder.Services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = "Identity.Application";
-                options.DefaultChallengeScheme = "Identity.Application";
-            });
-
-
             // services to the container.
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IServiceManager, ServiceManager>();
@@ -57,7 +52,32 @@ namespace Tournament.Api
             */
             builder.Services.AddAutoMapper(typeof(TournamentMappings));
 
-            
+            //  authentication
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    var secretkey = builder.Configuration["secretkey"];
+
+                    var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+                    ArgumentNullException.ThrowIfNull(nameof(jwtSettings));
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidateLifetime = true,
+                        ValidIssuer = jwtSettings["Issuer"],
+                        ValidAudience = jwtSettings["Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretkey))
+
+                    };
+                }
+            );
+
 
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

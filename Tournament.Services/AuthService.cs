@@ -54,5 +54,16 @@ namespace Tournament.Services
 
             return result;
         }
+
+        public async Task<bool> ValidateUserAsync(UserAuthDto userAuthDto)
+        {
+            if (userAuthDto is null)
+            {
+                throw new ArgumentNullException(nameof(userAuthDto));
+            }
+            var user = await userManager.FindByNameAsync(userAuthDto.Email);
+            return user != null && await userManager.CheckPasswordAsync(user, userAuthDto.PassWord);
+
+        }
     }
 }

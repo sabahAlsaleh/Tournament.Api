@@ -23,6 +23,13 @@ namespace Tournament.Presentation.Controllers
 
         }
 
+        [HttpPost("login")]
+        public async Task<ActionResult> Authenticate(UserAuthDto userAuthDto)
+        {
+            if( !await _serviceManager.AuthService.ValidateUserAsync(userAuthDto)) return Unauthorized();
+            return Ok();
+        }
+
 
 
 
