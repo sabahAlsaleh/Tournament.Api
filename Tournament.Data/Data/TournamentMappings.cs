@@ -17,11 +17,13 @@ namespace Tournament.Data.Data
             CreateMap<TournamentDetails,TournamentDto>()
                 .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.StartDate.AddMonths(3)))
               //  .ForMember(dest => dest.Games, opt => opt.MapFrom(src => src.Games))
-
-                .ReverseMap();
+              .ReverseMap();
 
             CreateMap<Game,GameDto>().ReverseMap();
             CreateMap<TournamentDetails, TournamentDtoWithGame>().ReverseMap();
+
+            CreateMap<UserRegistrationDto, ApplicationUser>()
+            .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));
         }
 
     }
